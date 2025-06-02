@@ -1,0 +1,53 @@
+# Workflow для линтинга кода и сборки Docker образа
+name: Lint and Build
+
+# Запускается при push в любую ветку
+on:
+  push:
+    branches:
+      - '*'
+
+jobs:
+  # Задача для проверки кода линтером
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Установка Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          
+      # Установка flake8
+      - name: Install flake8
+        run: |
+          python -m pip install --upgrade pip
+          pip install flake8
+          
+      # Запуск проверки линтером
+      - name: Run flake8
+        run: flake8 .
+
+  # Задача для сборки и публикации Docker образа
+  build-and-push:
+    needs: lint  # Запускается только после успешного линтинга
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      # Авторизация в Docker Hub
+      - name: Login to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+          
+      # Сборка и публикация образа
+      - name: Build and push
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          push: true
+          tags: sidorenko2202/flake8:latest
