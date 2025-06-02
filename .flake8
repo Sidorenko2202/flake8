@@ -1,5 +1,29 @@
 [flake8]
 max-line-length = 120
-ignore = E201,E202,E203,E211,E221,E222,E225,E226,E227,E228,E231,E241,E251,E261,E262,E265,E266,E271,E272,W291,W292,W293,W391
+ignore = 
+    E111,  # indentation is not a multiple of 4
+    E201,  # whitespace after '('
+    E202,  # whitespace before ')'
+    E203,  # whitespace before ':'
+    E211,  # whitespace before '('
+    E221,  # multiple spaces before operator
+    E222,  # multiple spaces after operator
+    E225,  # missing whitespace around operator
+    E226,  # missing whitespace around arithmetic operator
+    E227,  # missing whitespace around bitwise or shift operator
+    E228,  # missing whitespace around modulo operator
+    E231,  # missing whitespace after ','
+    E241,  # multiple spaces after ','
+    E251,  # unexpected spaces around keyword / parameter equals
+    E261,  # at least two spaces before inline comment
+    E262,  # inline comment should start with '# '
+    E265,  # block comment should start with '# '
+    E266,  # too many leading '#' for block comment
+    E271,  # multiple spaces after keyword
+    E272,  # multiple spaces before keyword
+    W291,  # trailing whitespace
+    W292,  # no newline at end of file
+    W293,  # blank line contains whitespace
+    W391   # blank line at end of file
 exclude = .git,__pycache__,build,dist
 max-complexity = 10
